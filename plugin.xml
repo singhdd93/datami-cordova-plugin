@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="datami-cordova-plugin"
+    version="1.0.0">
+    <name>Datami Cordova Plugin</name>
+    <description></description>
+    <license>MIT</license>
+    <keywords></keywords>
+    <repo>https://github.com/ionic-team/cordova-plugin-template.git</repo>
+    <issue>https://github.com/ionic-team/cordova-plugin-template.git/issues</issue>
+
+    <!-- android -->
+    <platform name="android">
+
+    <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
+      <application android:name="com.datami.DatamiApplication"/>
+    </edit-config>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application" mode="merge">
+        <service android:name="com.datami.smi.SmiIntentService" />
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+        <uses-permission android:name="android.permission.INTERNET"/>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </config-file>
+
+    <source-file src="src/android/com/datami/DatamiApplication.java" target-dir="src/com/datami/" />
+    <source-file src="libs/smisdk-android.jar" target-dir="libs/" />
+
+    <!-- <hook type="after_prepare" src="add_application_name.js" /> -->
+
+    </platform>
+
+    <!-- ios -->
+    <!-- <platform name="ios">
+        <js-module src="www/plugin.js" name="plugin">
+            <runs/>
+            <clobbers target="MyCordovaPlugin" />
+        </js-module>
+        <config-file target="config.xml" parent="/*">
+            <feature name="MyCordovaPlugin">
+                <param name="ios-package" value="MyCordovaPlugin" onload="true" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/MyCordovaPlugin.h" />
+        <source-file src="src/ios/MyCordovaPlugin.m" />
+    </platform> -->
+</plugin>

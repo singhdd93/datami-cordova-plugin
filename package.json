@@ -1,0 +1,12 @@
+{
+  "name": "datami-cordova-plugin",
+  "version": "1.0.0",
+  "cordova": {
+    "id": "datami-cordova-plugin",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "description": "Datami cordova plugin to include Datami Sponsored Data SDK to the app."
+}

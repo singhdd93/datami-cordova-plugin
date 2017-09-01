@@ -31,25 +31,50 @@
     </config-file>
 
     <source-file src="src/android/com/datami/DatamiApplication.java" target-dir="src/com/datami/" />
-    <source-file src="libs/smisdk-android.jar" target-dir="libs/" />
+    <source-file src="libs/android/smisdk-android.jar" target-dir="libs/" />
 
     <!-- <hook type="after_prepare" src="add_application_name.js" /> -->
 
     </platform>
 
     <!-- ios -->
-    <!-- <platform name="ios">
-        <js-module src="www/plugin.js" name="plugin">
-            <runs/>
-            <clobbers target="MyCordovaPlugin" />
-        </js-module>
+    <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="MyCordovaPlugin">
-                <param name="ios-package" value="MyCordovaPlugin" onload="true" />
+            <feature name="DatamiCordovaPlugin">
+                <param name="ios-package" value="DatamiCordovaPlugin"/>
+                <param name="onload" value="true" />
             </feature>
         </config-file>
+        <source-file src="src/ios/AppDelegate+datami.m" />
+        <source-file src="src/ios/DatamiCordovaPlugin.m" />
 
-        <header-file src="src/ios/MyCordovaPlugin.h" />
-        <source-file src="src/ios/MyCordovaPlugin.m" />
-    </platform> -->
+        <header-file src="src/ios/DatamiCordovaPlugin.h" />
+        <header-file src="src/ios/AppDelegate+datami.h" />
+
+
+        <framework src="SystemConfiguration.framework" />
+        <framework src="CoreTelephony.framework" />
+
+        <header-file src="libs/ios/SmiUIWebView.h"/>
+        <header-file src="libs/ios/SmiSdk.h"/>
+        <header-file src="libs/ios/SmiAnalytics.h"/>
+        <source-file src="libs/ios/libsmisdk.a" framework="true"/>
+
+        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+            <dict>
+              <key>NSExceptionDomains</key>
+              <dict>
+                  <key>cloudmi.datami.com</key>
+                  <dict>
+                      <key>NSIncludesSubdomains</key>
+                      <true/>
+                      <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                      <true/>
+                      <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                      <string>TLSv1.1</string>
+                  </dict>
+              </dict>
+            </dict>
+        </config-file>
+    </platform>
 </plugin>

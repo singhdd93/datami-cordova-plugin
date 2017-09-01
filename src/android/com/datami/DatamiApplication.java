@@ -52,11 +52,14 @@ public class DatamiApplication extends Application implements SdStateChangeListe
 
 		Log.d(TAG, "apiKey " + apiKey + " useSdkMessaging " + useSdkMessaging + " useSdkNotifMessaging " + useSdkNotifMessaging);
 
-		boolean sdkMessaging = Boolean.getBoolean(useSdkMessaging);
-		boolean sdkNotifMessaging = Boolean.getBoolean(useSdkNotifMessaging);
+		boolean sdkMessaging = Boolean.valueOf(useSdkMessaging);
+		boolean sdkNotifMessaging = Boolean.valueOf(useSdkNotifMessaging);
+
+		Log.d(TAG, "sdkMessaging " + sdkMessaging + " sdkNotifMessaging " + sdkNotifMessaging);
 
 		if(sdkNotifMessaging) {
 			int iconId = context.getResources().getIdentifier("icon", "mipmap", context.getPackageName());
+			Log.d(TAG, "iconId " + iconId);
 			SmiSdk.initSponsoredData(apiKey, context, "", iconId, sdkMessaging);
 		}else{
 			SmiSdk.initSponsoredData(apiKey, context, "", -1, sdkMessaging);

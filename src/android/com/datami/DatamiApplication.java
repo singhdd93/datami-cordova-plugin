@@ -22,7 +22,7 @@ import com.datami.smi.SmiSdk;
 
 public class DatamiApplication extends Application implements SdStateChangeListener{
 	final String TAG = "Datami";
-	private List<String> supportedKeys = new ArrayList(Arrays.asList("api_key", "sdk_messaging", "sdk_notficiation_messaging"));
+	private List<String> supportedKeys = new ArrayList(Arrays.asList("api_key", "sdk_messaging", "sdk_notficiation_messaging", "icon_folder", "icon_name"));
 
 	@Override
 	public void onCreate() {
@@ -61,7 +61,7 @@ public class DatamiApplication extends Application implements SdStateChangeListe
 			iconName = "icon";
 		}
 
-		Log.d(TAG, "apiKey " + apiKey + " useSdkMessaging " + useSdkMessaging + " useSdkNotifMessaging " + useSdkNotifMessaging);
+		Log.d(TAG, "apiKey " + apiKey + " useSdkMessaging " + useSdkMessaging + " useSdkNotifMessaging " + useSdkNotifMessaging + " iconFolder " + iconFolder + " iconName " + iconName);
 
 		boolean sdkMessaging = Boolean.valueOf(useSdkMessaging);
 		boolean sdkNotifMessaging = Boolean.valueOf(useSdkNotifMessaging);

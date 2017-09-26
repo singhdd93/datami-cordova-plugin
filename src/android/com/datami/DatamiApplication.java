@@ -50,6 +50,17 @@ public class DatamiApplication extends Application implements SdStateChangeListe
 			useSdkNotifMessaging = "false";
 		}
 
+		String iconFolder = preferences.get("icon_folder");
+		String iconName   = preferences.get("icon_name");
+
+		if(iconFolder == null) {
+			iconFolder = "mipmap";
+		}
+
+		if(iconName == null) {
+			iconName = "icon";
+		}
+
 		Log.d(TAG, "apiKey " + apiKey + " useSdkMessaging " + useSdkMessaging + " useSdkNotifMessaging " + useSdkNotifMessaging);
 
 		boolean sdkMessaging = Boolean.valueOf(useSdkMessaging);
@@ -58,7 +69,7 @@ public class DatamiApplication extends Application implements SdStateChangeListe
 		Log.d(TAG, "sdkMessaging " + sdkMessaging + " sdkNotifMessaging " + sdkNotifMessaging);
 
 		if(sdkNotifMessaging) {
-			int iconId = context.getResources().getIdentifier("icon", "mipmap", context.getPackageName());
+			int iconId = context.getResources().getIdentifier(iconName, iconFolder, context.getPackageName());
 			Log.d(TAG, "iconId " + iconId);
 			SmiSdk.initSponsoredData(apiKey, context, "", iconId, sdkMessaging);
 		}else{

@@ -13,7 +13,7 @@
 
 
 - (void)pluginInitialize {
-    NSLog(@"TES skvmnsdfkvndofsv T");
+    NSLog(@"DatamiSDStateChangePlugin Initialised");
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receivedStateChage:)
                                                  name:SDSTATE_CHANGE_NOTIF object:nil];
@@ -21,7 +21,7 @@
 
 - (void)getSDState:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"TEST 2eweqw");
+    NSLog(@"DatamiSDStateChangePlugin - getSDState");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
     if (app.smiResult.sdState == SD_AVAILABLE) {
@@ -33,20 +33,26 @@
     else {
         sdStatus = [NSString stringWithFormat:@"SD_NOT_AVAILABLE, Reason: %@",[self getSDReasonAsString:app.smiResult.sdReason]];
     }
-   // [self sendPluginResult];
+    [self sendPluginResult];
 }
 
 - (void)sendPluginResult
 {
-    NSLog(@"TEST");
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: sdStatus];
-    [result setKeepCallbackAsBool:YES];
-    [self.commandDelegate sendPluginResult:result callbackId:_callbackId];
+    if(![sdStatus isEqualToString:prevSdStatus]) {
+        NSLog(@"DatamiSDStateChangePlugin - sendPluginResult");
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: sdStatus];
+        [result setKeepCallbackAsBool:YES];
+        [self.commandDelegate sendPluginResult:result callbackId:_callbackId];
+        prevSdStatus = sdStatus;
+    }
+    else {
+        NSLog(@"SD Status is same as Previous SD Status");
+    }
 }
 
 -(void)receivedStateChage:(NSNotification*)notif {
     SmiResult* sr =  notif.object;
-    NSLog(@"receivedStateChag jnjjnljkn e, sdState: %ld", (long)sr.sdState);
+    NSLog(@"DatamiSDStateChangePlugin - sdState: %ld", (long)sr.sdState);
     if (sr.sdState == SD_AVAILABLE) {
         sdStatus = @"SD_AVAILABLE";
     }

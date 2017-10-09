@@ -11,6 +11,7 @@
 @interface DatamiSDStateChangePlugin : CDVPlugin {
     
     NSString* sdStatus;
+    NSString* prevSdStatus;
     NSString* _callbackId;
 
 }

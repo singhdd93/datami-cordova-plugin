@@ -15,6 +15,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
 
+import com.datami.smi.SdReason;
 import com.datami.smi.SdState;
 import com.datami.smi.SdStateChangeListener;
 import com.datami.smi.SmiResult;
@@ -23,6 +24,8 @@ import com.datami.smi.SmiSdk;
 public class DatamiApplication extends Application implements SdStateChangeListener{
 	final String TAG = "Datami";
 	private List<String> supportedKeys = new ArrayList(Arrays.asList("api_key", "sdk_messaging", "sdk_notficiation_messaging", "icon_folder", "icon_name"));
+
+	public static SmiResult smiResult;
 
 	@Override
 	public void onCreate() {
@@ -77,20 +80,21 @@ public class DatamiApplication extends Application implements SdStateChangeListe
 		}
 	}
 
-	@Override
-	public void onChange(SmiResult currentSmiResult) {
-		SdState sdState = currentSmiResult.getSdState();
-        Log.d(TAG, "sponsored data state : "+sdState);
-        if(sdState == SdState.SD_AVAILABLE) {
-            // TODO: show a banner or message to user, indicating that the data usage is sponsored and charges do not apply to user data plan
-        } else if(sdState == SdState.SD_NOT_AVAILABLE) {
-            // TODO: show a banner or message to user, indicating that the data usage is NOT sponsored and charges apply to user data plan
-            Log.d(TAG, " - reason: " + currentSmiResult.getSdReason());
-        } else if(sdState == SdState.WIFI) {
-            // device is in wifi
-        }
-
-	}
+	 @Override
+	 public void onChange(SmiResult currentSmiResult) {
+		 smiResult = currentSmiResult;
+	 	SdState sdState = currentSmiResult.getSdState();
+         Log.d(TAG, "sponsored data state : "+sdState);
+         if(sdState == SdState.SD_AVAILABLE) {
+             // TODO: show a banner or message to user, indicating that the data usage is sponsored and charges do not apply to user data plan
+         } else if(sdState == SdState.SD_NOT_AVAILABLE) {
+             // TODO: show a banner or message to user, indicating that the data usage is NOT sponsored and charges apply to user data plan
+             Log.d(TAG, " - reason: " + currentSmiResult.getSdReason());
+         } else if(sdState == SdState.WIFI) {
+             // device is in wifi
+         }
+		DatamiSDStateChangePlugin.onChange();
+	 }
 
 	private Map loadConfigsFromXml(Resources res, int configXmlResourceId){
 	   //

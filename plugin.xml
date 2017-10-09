@@ -11,8 +11,19 @@
     <repo>https://github.com/ionic-team/cordova-plugin-template.git</repo>
     <issue>https://github.com/ionic-team/cordova-plugin-template.git/issues</issue>
 
+
+    <js-module src="www/plugin.js" name="DatamiSDStateChangePlugin" >
+      <clobbers target="datamisdplugin" />
+    </js-module>
+
     <!-- android -->
     <platform name="android">
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="DatamiSDStateChangePlugin">
+        <param name="android-package" value="com.datami.DatamiSDStateChangePlugin"/>
+      </feature>
+    </config-file>
 
     <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
       <application android:name="com.datami.DatamiApplication"/>
@@ -31,6 +42,7 @@
     </config-file>
 
     <source-file src="src/android/com/datami/DatamiApplication.java" target-dir="src/com/datami/" />
+    <source-file src="src/android/com/datami/DatamiSDStateChangePlugin.java" target-dir="src/com/datami/" />
     <source-file src="libs/android/smisdk-android.jar" target-dir="libs/" />
 
     <!-- <hook type="after_prepare" src="add_application_name.js" /> -->
@@ -44,11 +56,17 @@
                 <param name="ios-package" value="DatamiCordovaPlugin"/>
                 <param name="onload" value="true" />
             </feature>
+            <feature name="DatamiSDStateChangePlugin">
+                <param name="ios-package" value="DatamiSDStateChangePlugin"/>
+            </feature>
         </config-file>
+        
         <source-file src="src/ios/AppDelegate+datami.m" />
+        <source-file src="src/ios/DatamiSDStateChangePlugin.m" />
         <source-file src="src/ios/DatamiCordovaPlugin.m" />
 
         <header-file src="src/ios/DatamiCordovaPlugin.h" />
+        <header-file src="src/ios/DatamiSDStateChangePlugin.h" />
         <header-file src="src/ios/AppDelegate+datami.h" />
 
 

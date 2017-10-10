@@ -33,7 +33,7 @@ public class DatamiSDStateChangePlugin extends CordovaPlugin {
             sdState = sdState + ", Reason: "+DatamiApplication.smiResult.getSdReason().name();
         }
         if (connectionCallbackContext != null) {
-            Log.d("TEST","SENDING RESULT");
+            Log.d("DatamiSDStateChangePlugin","Sending Result");
             PluginResult result = new PluginResult(PluginResult.Status.OK, sdState);
             result.setKeepCallback(true);
             connectionCallbackContext.sendPluginResult(result);
@@ -42,18 +42,15 @@ public class DatamiSDStateChangePlugin extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        Log.d("TEST","TEST");
         if (action.equals("getSDState")) {
-            Log.d("TEST","getSDState");
+            Log.d("DatamiSDStateChangePlugin","getSDState");
             this.connectionCallbackContext = callbackContext;
 
             String sdState = "";
 
             if (DatamiApplication.smiResult != null) {
-                Log.d("TEST","mSmiResult");
                 sdState = DatamiApplication.smiResult.getSdState().name();
                 if (DatamiApplication.smiResult.getSdState() == SdState.SD_NOT_AVAILABLE) {
-                    Log.d("TEST","SD NA");
                     sdState = sdState + ", Reason: "+DatamiApplication.smiResult.getSdReason().name();
                 }
             }

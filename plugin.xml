@@ -13,7 +13,7 @@
 
 
     <js-module src="www/plugin.js" name="DatamiSDStateChangePlugin" >
-      <clobbers target="datamisdplugin" />
+      <clobbers target="smiSdkPlugin" />
     </js-module>
 
     <!-- android -->
